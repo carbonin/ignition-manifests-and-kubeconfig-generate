@@ -60,6 +60,8 @@ def upload_to_s3(s3_endpoint_url, bucket, install_dir):
         for f in files:
             logging.info("Uplading file: {}".format(f))
             file_path = os.path.join(root, f)
+            if f == "kubeconfig":
+                f = "kubeconfig-noingress"
             s3_file_name = "{}/{}".format(prefix, f)
             print(s3_file_name)
             uploaded = upload_to_aws(s3, file_path, bucket, s3_file_name)
