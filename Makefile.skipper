@@ -1,0 +1,14 @@
+all: pep8 pylint
+
+pep8:
+	pep8 --max-line-length=145 render_files.py
+
+pylint:
+	mkdir -p reports
+	PYLINTHOME=reports/ pylint render_files.py
+
+clean:
+	rm -rf build dist *egg-info ./__pycache__
+	find -name *.pyc -delete
+
+.PHONY: pep8 pylint clean
