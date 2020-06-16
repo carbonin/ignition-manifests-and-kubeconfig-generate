@@ -11,6 +11,19 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: |
+          sudo pip install strato-skipper
+          mkdir -p ~/.docker
+          echo "{}" > ~/.docker/config.json
+          touch ${HOME}/.gitconfig
+      - name: build
+        run: |
+          skipper make
       - name: Get release version
         id: get_version
         run: echo ::set-env name=GIT_REVISION::$(echo ${GITHUB_SHA})
@@ -24,6 +37,6 @@ jobs:
           username: ${{ secrets.OCPMETAL_USERNAME }}
           password: ${{ secrets.OCPMETAL_PASSWORD }}
           REGISTRY: 'quay.io/ocpmetal'
-          dockerfile: Dockerfile.baremetal
+          dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
           buildargs: GIT_REVISION
           tags: "${{ env.GIT_TAG }},${{ env.GIT_REVISION }}"
