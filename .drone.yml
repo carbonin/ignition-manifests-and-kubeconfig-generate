@@ -11,4 +11,4 @@ steps:
       dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
 #      commands:
 #        - docker build . -f Dockerfile.ignition-manifests-and-kubeconfig-generate -t quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
-#        - docker push quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
+##        - docker push quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
