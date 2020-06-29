@@ -8,7 +8,6 @@ steps:
 #      username: oscohen
 #      password: nata2411
       repo: quay.io/oscohen/test
-#      tags: latest
       dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
 #      commands:
 #        - docker build . -f Dockerfile.ignition-manifests-and-kubeconfig-generate -t quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
