@@ -9,4 +9,5 @@ steps:
       username: oscohen
       password: nata2411
       repo: quay.io/oscohen/ignition-manifests-and-kubeconfig-generate_test
+      registry: quay.io
       dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
