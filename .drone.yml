@@ -2,12 +2,12 @@ kind: pipeline
 name: default
 
 steps:
-  - name: ignition
+  - name: docker
     image: plugins/docker
     settings:
 #      username: oscohen
 #      password: nata2411
-      repo: quay.io/oscohen
+      repo: quay.io/oscohen/ignition-manifests-and-kubeconfig-generate_test
       dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
 #      commands:
 #        - docker build . -f Dockerfile.ignition-manifests-and-kubeconfig-generate -t quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
