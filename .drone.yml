@@ -5,11 +5,8 @@ steps:
   - name: docker
     image: plugins/docker
     commands:
-      settings:
-#      username: oscohen
-#      password: nata2411
+    settings:
+#     username: oscohen
+#     password: nata2411
       repo: quay.io/oscohen/ignition-manifests-and-kubeconfig-generate_test
       dockerfile: Dockerfile.ignition-manifests-and-kubeconfig-generate
-#      commands:
-#        - docker build . -f Dockerfile.ignition-manifests-and-kubeconfig-generate -t quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
-##        - docker push quay.io/oscohen/ignition-manifests-and-kubeconfig-generate-tets
