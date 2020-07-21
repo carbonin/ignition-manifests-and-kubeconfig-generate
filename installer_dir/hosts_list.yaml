@@ -1,0 +1,129 @@
+- checked_in_at: '2020-07-22T12:18:54'
+  cluster_id: 51724237-025b-4693-993f-49d321ec2ea5
+  created_at: '2020-07-22T12:07:53'
+  discovery_agent_version: quay.io/ocpmetal/agent:latest
+  hardware_info: '{"block_devices":[{"device_type":"loop","fstype":"squashfs","major_device_number":7,"name":"loop0","size":746217472},{"device_type":"rom","fstype":"iso9660","major_device_number":11,"name":"sr0","removable_device":1,"size":822083584},{"device_type":"disk","major_device_number":252,"name":"vda","size":21474836480}],"cpu":{"architecture":"x86_64","cpu_mhz":2095.076,"cpus":4,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz","sockets":4,"threads_per_core":1},"memory":[{"free":15661727744,"name":"Mem","shared":1127391232,"total":17378611200,"used":1716883456},{"name":"Swap"}],"nics":[{"cidrs":[{"ip_address":"192.168.126.11","mask":24}],"mac":"52:54:00:42:1e:8d","mtu":1500,"name":"eth0","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"192.168.140.133","mask":24}],"mac":"52:54:00:ca:7b:16","mtu":1500,"name":"eth1","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"10.88.0.1","mask":16}],"mac":"8a:97:25:6c:c0:61","mtu":1500,"name":"cni-podman0","state":"NO-CARRIER,BROADCAST,MULTICAST,UP"}]}'
+  href: /api/assisted-install/v1/clusters/51724237-025b-4693-993f-49d321ec2ea5/hosts/26cc8e92-0f5a-4d05-93e1-0c55667a723b
+  id: 26cc8e92-0f5a-4d05-93e1-0c55667a723b
+  inventory: '{"bmc_address":"0.0.0.0","bmc_v6address":"::/0","boot":{"current_boot_mode":"bios"},"cpu":{"architecture":"x86_64","count":4,"flags":["fpu","vme","de","pse","tsc","msr","pae","mce","cx8","apic","sep","mtrr","pge","mca","cmov","pat","pse36","clflush","mmx","fxsr","sse","sse2","ss","syscall","nx","pdpe1gb","rdtscp","lm","constant_tsc","arch_perfmon","rep_good","nopl","xtopology","cpuid","tsc_known_freq","pni","pclmulqdq","vmx","ssse3","fma","cx16","pcid","sse4_1","sse4_2","x2apic","movbe","popcnt","tsc_deadline_timer","aes","xsave","avx","f16c","rdrand","hypervisor","lahf_lm","abm","3dnowprefetch","cpuid_fault","invpcid_single","pti","ssbd","ibrs","ibpb","stibp","tpr_shadow","vnmi","flexpriority","ept","vpid","ept_ad","fsgsbase","tsc_adjust","bmi1","hle","avx2","smep","bmi2","erms","invpcid","rtm","mpx","avx512f","avx512dq","rdseed","adx","smap","clflushopt","clwb","avx512cd","avx512bw","avx512vl","xsaveopt","xsavec","xgetbv1","xsaves","arat","umip","pku","ospke","md_clear","arch_capabilities"],"frequency":2095.076,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz"},"disks":[{"by_path":"/dev/disk/by-path/pci-0000:00:06.0","drive_type":"HDD","model":"unknown","name":"vda","path":"/dev/vda","serial":"unknown","size_bytes":21474836480,"vendor":"0x1af4","wwn":"unknown"}],"hostname":"test-infra-cluster-master-1.redhat.com","interfaces":[{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.126.11/24"],"ipv6_addresses":["fe80::5054:ff:fe42:1e8d/64"],"mac_address":"52:54:00:42:1e:8d","mtu":1500,"name":"eth0","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"},{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.140.133/24"],"ipv6_addresses":["fe80::5054:ff:feca:7b16/64"],"mac_address":"52:54:00:ca:7b:16","mtu":1500,"name":"eth1","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"}],"memory":{"physical_bytes":17809014784,"usable_bytes":17378611200},"system_vendor":{"manufacturer":"Red
+    Hat","product_name":"KVM"}}'
+  kind: Host
+  progress:
+    current_stage: ''
+    stage_started_at: '0001-01-01T00:00:00'
+    stage_updated_at: '0001-01-01T00:00:00'
+  progress_stages:
+  - Starting installation
+  - Installing
+  - Writing image to disk
+  - Rebooting
+  - Configuring
+  - Joined
+  - Done
+  requested_hostname: test-infra-cluster-master-1.redhat.com
+  role: master
+  status: error
+  status_info: Cluster is no longer preparing for installation
+  status_updated_at: '2020-07-22T12:18:34'
+  updated_at: '2020-07-22T12:18:54'
+  validations_info: '{"hardware":[{"id":"has-inventory","status":"success","message":"Valid
+    inventory exists for the host"},{"id":"has-min-cpu-cores","status":"success","message":"Sufficient
+    minimum CPU cores"},{"id":"has-min-memory","status":"success","message":"Sufficient
+    minimum memory"},{"id":"has-min-valid-disks","status":"success","message":"Sufficient
+    number of disks with required size"},{"id":"has-cpu-cores-for-role","status":"success","message":"Sufficient
+    CPU cores for role master"},{"id":"has-memory-for-role","status":"success","message":"Sufficient
+    memory for role master"},{"id":"hostname-unique","status":"success","message":"Hostname
+    test-infra-cluster-master-1.redhat.com is unique in cluster"},{"id":"hostname-valid","status":"success","message":"Hostname
+    test-infra-cluster-master-1.redhat.com is allowed"}],"network":[{"id":"connected","status":"success","message":"Host
+    is connected"},{"id":"machine-cidr-defined","status":"success","message":"Machine
+    network CIDR is defined"},{"id":"belongs-to-machine-cidr","status":"success","message":"Host
+    belongs to machine network CIDR 192.168.126.0/24"}],"role":[{"id":"role-defined","status":"success","message":"Role
+    is defined"}]}'
+- checked_in_at: '2020-07-22T12:18:57'
+  cluster_id: 51724237-025b-4693-993f-49d321ec2ea5
+  created_at: '2020-07-22T12:07:57'
+  discovery_agent_version: quay.io/ocpmetal/agent:latest
+  hardware_info: '{"block_devices":[{"device_type":"loop","fstype":"squashfs","major_device_number":7,"name":"loop0","size":746217472},{"device_type":"rom","fstype":"iso9660","major_device_number":11,"name":"sr0","removable_device":1,"size":822083584},{"device_type":"disk","major_device_number":252,"name":"vda","size":21474836480}],"cpu":{"architecture":"x86_64","cpu_mhz":2095.076,"cpus":4,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz","sockets":4,"threads_per_core":1},"memory":[{"free":15659839488,"name":"Mem","shared":1125908480,"total":17378619392,"used":1718779904},{"name":"Swap"}],"nics":[{"cidrs":[{"ip_address":"192.168.126.12","mask":24}],"mac":"52:54:00:c6:90:cc","mtu":1500,"name":"eth0","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"192.168.140.221","mask":24}],"mac":"52:54:00:ce:61:27","mtu":1500,"name":"eth1","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"10.88.0.1","mask":16}],"mac":"de:f2:95:50:17:4d","mtu":1500,"name":"cni-podman0","state":"NO-CARRIER,BROADCAST,MULTICAST,UP"}]}'
+  href: /api/assisted-install/v1/clusters/51724237-025b-4693-993f-49d321ec2ea5/hosts/5ecb0277-1621-4991-9fb5-d5832cf9b463
+  id: 5ecb0277-1621-4991-9fb5-d5832cf9b463
+  inventory: '{"bmc_address":"0.0.0.0","bmc_v6address":"::/0","boot":{"current_boot_mode":"bios"},"cpu":{"architecture":"x86_64","count":4,"flags":["fpu","vme","de","pse","tsc","msr","pae","mce","cx8","apic","sep","mtrr","pge","mca","cmov","pat","pse36","clflush","mmx","fxsr","sse","sse2","ss","syscall","nx","pdpe1gb","rdtscp","lm","constant_tsc","arch_perfmon","rep_good","nopl","xtopology","cpuid","tsc_known_freq","pni","pclmulqdq","vmx","ssse3","fma","cx16","pcid","sse4_1","sse4_2","x2apic","movbe","popcnt","tsc_deadline_timer","aes","xsave","avx","f16c","rdrand","hypervisor","lahf_lm","abm","3dnowprefetch","cpuid_fault","invpcid_single","pti","ssbd","ibrs","ibpb","stibp","tpr_shadow","vnmi","flexpriority","ept","vpid","ept_ad","fsgsbase","tsc_adjust","bmi1","hle","avx2","smep","bmi2","erms","invpcid","rtm","mpx","avx512f","avx512dq","rdseed","adx","smap","clflushopt","clwb","avx512cd","avx512bw","avx512vl","xsaveopt","xsavec","xgetbv1","xsaves","arat","umip","pku","ospke","md_clear","arch_capabilities"],"frequency":2095.076,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz"},"disks":[{"by_path":"/dev/disk/by-path/pci-0000:00:06.0","drive_type":"HDD","model":"unknown","name":"vda","path":"/dev/vda","serial":"unknown","size_bytes":21474836480,"vendor":"0x1af4","wwn":"unknown"}],"hostname":"test-infra-cluster-master-2.redhat.com","interfaces":[{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.126.12/24"],"ipv6_addresses":["fe80::5054:ff:fec6:90cc/64"],"mac_address":"52:54:00:c6:90:cc","mtu":1500,"name":"eth0","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"},{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.140.221/24"],"ipv6_addresses":["fe80::5054:ff:fece:6127/64"],"mac_address":"52:54:00:ce:61:27","mtu":1500,"name":"eth1","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"}],"memory":{"physical_bytes":17809014784,"usable_bytes":17378619392},"system_vendor":{"manufacturer":"Red
+    Hat","product_name":"KVM"}}'
+  kind: Host
+  progress:
+    current_stage: ''
+    stage_started_at: '0001-01-01T00:00:00'
+    stage_updated_at: '0001-01-01T00:00:00'
+  progress_stages:
+  - Starting installation
+  - Installing
+  - Writing image to disk
+  - Rebooting
+  - Configuring
+  - Joined
+  - Done
+  requested_hostname: test-infra-cluster-master-2.redhat.com
+  role: master
+  status: error
+  status_info: Cluster is no longer preparing for installation
+  status_updated_at: '2020-07-22T12:18:34'
+  updated_at: '2020-07-22T12:18:57'
+  validations_info: '{"hardware":[{"id":"has-inventory","status":"success","message":"Valid
+    inventory exists for the host"},{"id":"has-min-cpu-cores","status":"success","message":"Sufficient
+    minimum CPU cores"},{"id":"has-min-memory","status":"success","message":"Sufficient
+    minimum memory"},{"id":"has-min-valid-disks","status":"success","message":"Sufficient
+    number of disks with required size"},{"id":"has-cpu-cores-for-role","status":"success","message":"Sufficient
+    CPU cores for role master"},{"id":"has-memory-for-role","status":"success","message":"Sufficient
+    memory for role master"},{"id":"hostname-unique","status":"success","message":"Hostname
+    test-infra-cluster-master-2.redhat.com is unique in cluster"},{"id":"hostname-valid","status":"success","message":"Hostname
+    test-infra-cluster-master-2.redhat.com is allowed"}],"network":[{"id":"connected","status":"success","message":"Host
+    is connected"},{"id":"machine-cidr-defined","status":"success","message":"Machine
+    network CIDR is defined"},{"id":"belongs-to-machine-cidr","status":"success","message":"Host
+    belongs to machine network CIDR 192.168.126.0/24"}],"role":[{"id":"role-defined","status":"success","message":"Role
+    is defined"}]}'
+- checked_in_at: '2020-07-22T12:18:53'
+  cluster_id: 51724237-025b-4693-993f-49d321ec2ea5
+  created_at: '2020-07-22T12:07:53'
+  discovery_agent_version: quay.io/ocpmetal/agent:latest
+  hardware_info: '{"block_devices":[{"device_type":"loop","fstype":"squashfs","major_device_number":7,"name":"loop0","size":746217472},{"device_type":"rom","fstype":"iso9660","major_device_number":11,"name":"sr0","removable_device":1,"size":822083584},{"device_type":"disk","major_device_number":252,"name":"vda","size":21474836480}],"cpu":{"architecture":"x86_64","cpu_mhz":2095.076,"cpus":4,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz","sockets":4,"threads_per_core":1},"memory":[{"free":15614251008,"name":"Mem","shared":1140981760,"total":17378619392,"used":1764368384},{"name":"Swap"}],"nics":[{"cidrs":[{"ip_address":"192.168.126.10","mask":24}],"mac":"52:54:00:0e:ce:92","mtu":1500,"name":"eth0","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"192.168.140.105","mask":24}],"mac":"52:54:00:be:00:05","mtu":1500,"name":"eth1","state":"BROADCAST,MULTICAST,UP,LOWER_UP"},{"cidrs":[{"ip_address":"10.88.0.1","mask":16}],"mac":"06:e6:05:66:e5:2f","mtu":1500,"name":"cni-podman0","state":"NO-CARRIER,BROADCAST,MULTICAST,UP"}]}'
+  href: /api/assisted-install/v1/clusters/51724237-025b-4693-993f-49d321ec2ea5/hosts/7368d414-9b7c-493d-9b9d-ea0b23bb12b6
+  id: 7368d414-9b7c-493d-9b9d-ea0b23bb12b6
+  inventory: '{"bmc_address":"0.0.0.0","bmc_v6address":"::/0","boot":{"current_boot_mode":"bios"},"cpu":{"architecture":"x86_64","count":4,"flags":["fpu","vme","de","pse","tsc","msr","pae","mce","cx8","apic","sep","mtrr","pge","mca","cmov","pat","pse36","clflush","mmx","fxsr","sse","sse2","ss","syscall","nx","pdpe1gb","rdtscp","lm","constant_tsc","arch_perfmon","rep_good","nopl","xtopology","cpuid","tsc_known_freq","pni","pclmulqdq","vmx","ssse3","fma","cx16","pcid","sse4_1","sse4_2","x2apic","movbe","popcnt","tsc_deadline_timer","aes","xsave","avx","f16c","rdrand","hypervisor","lahf_lm","abm","3dnowprefetch","cpuid_fault","invpcid_single","pti","ssbd","ibrs","ibpb","stibp","tpr_shadow","vnmi","flexpriority","ept","vpid","ept_ad","fsgsbase","tsc_adjust","bmi1","hle","avx2","smep","bmi2","erms","invpcid","rtm","mpx","avx512f","avx512dq","rdseed","adx","smap","clflushopt","clwb","avx512cd","avx512bw","avx512vl","xsaveopt","xsavec","xgetbv1","xsaves","arat","umip","pku","ospke","md_clear","arch_capabilities"],"frequency":2095.076,"model_name":"Intel(R)
+    Xeon(R) Gold 6152 CPU @ 2.10GHz"},"disks":[{"by_path":"/dev/disk/by-path/pci-0000:00:06.0","drive_type":"HDD","model":"unknown","name":"vda","path":"/dev/vda","serial":"unknown","size_bytes":21474836480,"vendor":"0x1af4","wwn":"unknown"}],"hostname":"test-infra-cluster-master-0.redhat.com","interfaces":[{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.126.10/24"],"ipv6_addresses":["fe80::5054:ff:fe0e:ce92/64"],"mac_address":"52:54:00:0e:ce:92","mtu":1500,"name":"eth0","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"},{"flags":["up","broadcast","multicast"],"has_carrier":true,"ipv4_addresses":["192.168.140.105/24"],"ipv6_addresses":["fe80::5054:ff:febe:5/64"],"mac_address":"52:54:00:be:00:05","mtu":1500,"name":"eth1","product":"0x0001","speed_mbps":-1,"vendor":"0x1af4"}],"memory":{"physical_bytes":17809014784,"usable_bytes":17378619392},"system_vendor":{"manufacturer":"Red
+    Hat","product_name":"KVM"}}'
+  kind: Host
+  progress:
+    current_stage: ''
+    stage_started_at: '0001-01-01T00:00:00'
+    stage_updated_at: '0001-01-01T00:00:00'
+  progress_stages:
+  - Starting installation
+  - Installing
+  - Writing image to disk
+  - Rebooting
+  - Configuring
+  - Joined
+  - Done
+  requested_hostname: test-infra-cluster-master-0.redhat.com
+  role: master
+  status: error
+  status_info: Cluster is no longer preparing for installation
+  status_updated_at: '2020-07-22T12:18:34'
+  updated_at: '2020-07-22T12:18:53'
+  validations_info: '{"hardware":[{"id":"has-inventory","status":"success","message":"Valid
+    inventory exists for the host"},{"id":"has-min-cpu-cores","status":"success","message":"Sufficient
+    minimum CPU cores"},{"id":"has-min-memory","status":"success","message":"Sufficient
+    minimum memory"},{"id":"has-min-valid-disks","status":"success","message":"Sufficient
+    number of disks with required size"},{"id":"has-cpu-cores-for-role","status":"success","message":"Sufficient
+    CPU cores for role master"},{"id":"has-memory-for-role","status":"success","message":"Sufficient
+    memory for role master"},{"id":"hostname-unique","status":"success","message":"Hostname
+    test-infra-cluster-master-0.redhat.com is unique in cluster"},{"id":"hostname-valid","status":"success","message":"Hostname
+    test-infra-cluster-master-0.redhat.com is allowed"}],"network":[{"id":"connected","status":"success","message":"Host
+    is connected"},{"id":"machine-cidr-defined","status":"success","message":"Machine
+    network CIDR is defined"},{"id":"belongs-to-machine-cidr","status":"success","message":"Host
+    belongs to machine network CIDR 192.168.126.0/24"}],"role":[{"id":"role-defined","status":"success","message":"Role
+    is defined"}]}'
