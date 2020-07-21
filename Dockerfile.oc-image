@@ -1,0 +1,5 @@
+#This dockerfile require an openshift installer binary in CWD
+FROM alpine:latest
+RUN mkdir /root/oc
+COPY ./oc /root/oc
+
