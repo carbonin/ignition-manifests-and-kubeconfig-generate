@@ -49,7 +49,7 @@ def get_inventory_hosts(inventory_endpoint, cluster_id):
     apiClient = ApiClient(configuration=configs)
     client = api.InstallerApi(api_client=apiClient)
     hosts_list = client.list_hosts(cluster_id=cluster_id)
-    return [InventoryHost(host) for host in hosts_list]
+    return [InventoryHost(host) for host in hosts_list if host['status'] != 'disabled']
 
 
 def find_available_inventory_host(hosts_list, is_master):
