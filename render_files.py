@@ -1,22 +1,21 @@
 #!/usr/bin/env python
 
 import argparse
-import json
-import yaml
 import logging
 import subprocess
 import sys
 import os
-import boto3
-import base64
 import re
+import base64
+import json
+import yaml
+import boto3
 from botocore.exceptions import NoCredentialsError
 import utils
 import test_utils
 
-files_to_remove = ['baremetal-provisioning-config']
+BMH_CR_FILE_PATTERN = 'openshift-cluster-api_hosts'
 
-bmh_cr_file_pattern = 'openshift-cluster-api_hosts'
 
 def get_s3_client(s3_endpoint_url, aws_access_key_id, aws_secret_access_key):
     s3_client = boto3.client(
@@ -39,7 +38,7 @@ def upload_to_aws(s3_client, local_file, bucket, s3_file):
 
 
 def is_bmh_cr_file(path):
-    if bmh_cr_file_pattern in path:
+    if BMH_CR_FILE_PATTERN in path:
         return True
     return False
 
@@ -87,7 +86,7 @@ def update_credentials_name(bmh_dict):
 
 
 def update_bmh_cr_file(file_data, hosts_list):
-    bmh_dict = get_bmh_dict_from_file(file_data)    
+    bmh_dict = get_bmh_dict_from_file(file_data)
     annot_dict = prepare_annotation_dict(bmh_dict['status'], hosts_list, is_master_bmh(bmh_dict))
     if annot_dict is not None:
         # [TODO] - make sure that Kiren fix to openshift-installer is working before removing  this fix in 4.6
@@ -112,6 +111,7 @@ def update_bmh_files(ignition_file, cluster_id, inventory_endpoint):
 
     with open(ignition_file, "w") as file_obj:
         json.dump(data, file_obj)
+
 
 def upload_to_s3(s3_endpoint_url, bucket, aws_access_key_id, aws_secret_access_key, install_dir, cluster_id):
     s3_client = get_s3_client(s3_endpoint_url, aws_access_key_id, aws_secret_access_key)
@@ -170,12 +170,15 @@ def main():
 
     # [TODO] - add extracting openshift-baremetal-install from release image and using it instead of locally compile openshift-intall
     # try:
-        # command = "%s/oc adm release extract --command=openshift-baremetal-install  --to=%s quay.io/openshift-release-dev/ocp-release-nightly@sha256:ba2e09a06c7fca19e162286055c6922135049e6b91f71e2a646738b2d7ab9983" % (work_dir, work_dir)
+        # command = "%s/oc adm release extract --command=openshift-baremetal-install  --to=%s \
+        # quay.io/openshift-release-dev/ocp-release-nightly@sha256:ba2e09a06c7fca19e162286055c6922135049e6b91f71e2a646738b2d7ab9983" \
+        # % (work_dir, work_dir)
     #    subprocess.check_output(command, shell=True, stderr=sys.stdout)
     # except Exception as ex:
     #    raise Exception('Failed to extract installer, exception: {}'.format(ex))
 
-    # command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-baremetal-install create ignition-configs --dir %s" % (work_dir, config_dir)
+    # command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-baremetal-install create ignition-configs --dir %s" \
+    #        % (work_dir, config_dir)
     command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-install create ignition-configs --dir %s" % (work_dir, config_dir)
     try:
         subprocess.check_output(command, shell=True, stderr=sys.stdout)
