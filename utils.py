@@ -13,7 +13,7 @@ class InventoryHost:
 
     def get_inventory_host_nics_data(self):
         interfaces_list = [models.Interface(**interface) for interface in self._inventory.interfaces]
-        return [{'name': interface.name, 'model': interface.product, 'mac': interface.mac_address, 'ip': interface.ipv4_addresses[0].split("/")[0], 'speed': interface.speed_mbps} for interface in interfaces_list]
+        return [{'name': interface.name, 'model': interface.product, 'mac': interface.mac_address, 'ip': self._get_network_interface_ip(interface), 'speed': interface.speed_mbps} for interface in interfaces_list]
 
 
     def get_inventory_host_cpu_data(self):
@@ -41,7 +41,14 @@ class InventoryHost:
 
     def is_role(self, role):
         return self._host.role == role
-    
+
+    def _get_network_interface_ip(self, interface):
+        if len(interface.ipv4_addresses) > 0:
+            return interface.ipv4_addresses[0].split("/")[0]
+        if len(interface.ipv6_addresses) > 0:
+            return interface.ipv6_addresses[0].split("/")[0]
+        return " "
+
 
 def get_inventory_hosts(inventory_endpoint, cluster_id):
     configs = Configuration()
