@@ -5,12 +5,16 @@ import logging
 import subprocess
 import sys
 import os
+import shutil
 import json
 import boto3
 from botocore.exceptions import NoCredentialsError
 import utils
 import bmh_utils
 import test_utils
+
+INSTALL_CONFIG = "install-config.yaml"
+INSTALL_CONFIG_BACKUP = "backup-install-config.yaml"
 
 
 def get_s3_client(s3_endpoint_url, aws_access_key_id, aws_secret_access_key):
@@ -77,6 +81,13 @@ def debug_print_upload_to_s3(install_dir):
             print("Uploading file %s as object %s" % (file_path, s3_file_name))
 
 
+def install_config_manipulation(before_installer, config_dir):
+    if before_installer:
+        shutil.copyfile(os.path.join(config_dir, INSTALL_CONFIG), os.path.join(config_dir,INSTALL_CONFIG_BACKUP))
+    else:
+        shutil.move(os.path.join(config_dir,INSTALL_CONFIG_BACKUP), os.path.join(config_dir, INSTALL_CONFIG))
+
+
 def main():
     parser = argparse.ArgumentParser(description='Generate ignition manifest & kubeconfig')
     parser.add_argument('--s3_endpoint_url', help='s3 endpoint url', default=None)
@@ -98,13 +109,15 @@ def main():
     config_dir = os.path.join(work_dir, "installer_dir")
     if install_config:
         subprocess.check_output(["mkdir", "-p", config_dir])
-        with open(os.path.join(config_dir, 'install-config.yaml'), 'w+') as file_obj:
+        with open(os.path.join(config_dir, INSTALL_CONFIG), 'w+') as file_obj:
             file_obj.write(install_config)
     if not os.path.isdir(config_dir):
         raise Exception('installer directory is not mounted')
 
-    if not os.path.isfile(os.path.join(config_dir, 'install-config.yaml')):
+    if not os.path.isfile(os.path.join(config_dir, INSTALL_CONFIG)):
         raise Exception("install config file not located in installer dir")
+
+    install_config_manipulation(config_dir=config_dir, before_installer=True)
 
     # [TODO] - add extracting openshift-baremetal-install from release image and using it instead of locally compile openshift-intall
     # try:
@@ -117,11 +130,14 @@ def main():
 
     # command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-baremetal-install create ignition-configs --dir %s" \
     #        % (work_dir, config_dir)
+
     command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-install create ignition-configs --dir %s" % (work_dir, config_dir)
     try:
         subprocess.check_output(command, shell=True, stderr=sys.stdout)
     except Exception as ex:
         raise Exception('Failed to generate files, exception: {}'.format(ex))
+
+    install_config_manipulation(config_dir=config_dir, before_installer=True)
 
     try:
         update_bmh_files("%s/bootstrap.ign" % config_dir, cluster_id, inventory_endpoint)
