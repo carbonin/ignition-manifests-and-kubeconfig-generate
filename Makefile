@@ -7,7 +7,7 @@ build:
 	skipper build ignition-manifests-and-kubeconfig-generate
 
 update: build
-	GIT_REVISION=${GIT_REVISION} docker build --build-arg GIT_REVISION -t $(SERVICE) -f Dockerfile.ignition-manifests-and-kubeconfig-generate .
+	GIT_REVISION=${GIT_REVISION} docker build --pull --build-arg GIT_REVISION -t $(SERVICE) -f Dockerfile.ignition-manifests-and-kubeconfig-generate .
 	docker push $(SERVICE)
 
 .DEFAULT:
