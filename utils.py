@@ -1,6 +1,6 @@
 import os
 import json
-from bm_inventory_client import ApiClient, Configuration, api, models
+from assisted_service_client import ApiClient, Configuration, api, models
 
 
 
