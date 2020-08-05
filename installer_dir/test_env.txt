@@ -1,0 +1,1 @@
+OPENSHIFT_INSTALL_RELEASE_IMAGE_OVERRIDE=quay.io/openshift-release-dev/ocp-release@sha256:029d56f7cf4a0de420f84f9178e030a3cfb83a480f3d086a7f5ed31b62bc08d0
