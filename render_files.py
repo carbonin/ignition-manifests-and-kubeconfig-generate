@@ -8,6 +8,7 @@ import sys
 import os
 import shutil
 import json
+import yaml
 import boto3
 from botocore.exceptions import NoCredentialsError
 import utils
@@ -50,7 +51,10 @@ def update_bmh_files(ignition_file, cluster_id, inventory_endpoint):
             data = json.load(file_obj)
             storage_files = data['storage']['files']
             # since we don't remove file for now, we don't need to iterate through copy
+            # for file_data in storage_files[:]:
             for file_data in storage_files:
+                # if file_data['path'] == '/etc/motd':
+                #    storage_files.remove(file_data)
                 if bmh_utils.is_bmh_cr_file(file_data['path']):
                     bmh_utils.update_bmh_cr_file(file_data, hosts_list)
 
@@ -99,6 +103,8 @@ def generate_installation_files(work_dir, config_dir):
     # command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-baremetal-install create ignition-configs --dir %s" \
     #        % (work_dir, config_dir)
     with backup_restore_install_config(config_dir=config_dir):
+        # command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-baremetal-install create ignition-configs --dir %s" \
+        #        % (work_dir, config_dir)
         command = "OPENSHIFT_INSTALL_INVOKER=\"assisted-installer\" %s/openshift-install create " \
                   "ignition-configs --dir %s" % (work_dir, config_dir)
         try:
@@ -119,10 +125,26 @@ def prepare_install_config(config_dir, install_config):
             file_obj.write(install_config)
 
 
+def set_pull_secret(config_dir):
+    with open(os.path.join(config_dir, INSTALL_CONFIG), 'r') as json_file:
+        pull_secret = yaml.safe_load(json_file)['pullSecret']
+    with open('/root/.docker/config.json', 'w+') as config_file:
+        config_file.write(pull_secret)
+
+
 def create_config_dir(work_dir):
     config_dir = os.path.join(work_dir, "installer_dir")
     subprocess.check_output(["mkdir", "-p", config_dir])
     return config_dir
+
+
+def extract_baremetal_installer(work_dir, openshift_release_image):
+    try:
+        command = "%s/oc adm release extract --command=openshift-baremetal-install  --to=%s %s" \
+                % (work_dir, work_dir, openshift_release_image)
+        subprocess.check_output(command, shell=True, stderr=sys.stdout)
+    except Exception as ex:
+        raise Exception('Failed to extract installer, exception: {}'.format(ex))
 
 
 def main():
@@ -139,12 +161,15 @@ def main():
     bucket = os.environ.get('S3_BUCKET', args.s3_bucket)
     aws_access_key_id = os.environ.get("aws_access_key_id", "accessKey1")
     aws_secret_access_key = os.environ.get("aws_secret_access_key", "verySecretKey1")
+    openshift_release_image = os.environ.get("OPENSHIFT_INSTALL_RELEASE_IMAGE_OVERRIDE")
 
     if not work_dir:
         raise Exception("working directory was not defined")
 
     config_dir = create_config_dir(work_dir=work_dir)
     prepare_install_config(config_dir=config_dir, install_config=install_config)
+    set_pull_secret(config_dir=config_dir)
+    extract_baremetal_installer(work_dir, openshift_release_image)
     generate_installation_files(work_dir=work_dir, config_dir=config_dir)
 
     # [TODO] - add extracting openshift-baremetal-install from release image and using it instead of locally compile openshift-intall
