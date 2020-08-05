@@ -122,12 +122,12 @@ def prepare_install_config(config_dir, install_config):
     if not os.path.exists(install_config_path):
         logging.info("writing install config to file")
         with open(os.path.join(config_dir, INSTALL_CONFIG), 'w+') as file_obj:
-            file_obj.write(install_config)
+            yaml.dump(install_config, file_obj)
 
 
 def set_pull_secret(config_dir):
-    with open(os.path.join(config_dir, INSTALL_CONFIG), 'r') as json_file:
-        pull_secret = yaml.safe_load(json_file)['pullSecret']
+    with open(os.path.join(config_dir, INSTALL_CONFIG), 'r') as yaml_file:
+        pull_secret = yaml.safe_load(yaml_file)['pullSecret']
     with open('/root/.docker/config.json', 'w+') as config_file:
         config_file.write(pull_secret)
 
