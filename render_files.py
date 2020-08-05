@@ -41,10 +41,10 @@ def upload_to_aws(s3_client, local_file, bucket, s3_file):
         return False
 
 
-def update_bmh_files(ignition_file, cluster_id, inventory_endpoint):
+def update_bmh_files(ignition_file, cluster_id, inventory_endpoint, token):
     try:
         if inventory_endpoint:
-            hosts_list = utils.get_inventory_hosts(inventory_endpoint, cluster_id)
+            hosts_list = utils.get_inventory_hosts(inventory_endpoint, cluster_id, token)
         else:
             logging.info("Using test data to get hosts list")
             hosts_list = test_utils.get_test_list_hosts(cluster_id)
@@ -126,11 +126,14 @@ def prepare_install_config(config_dir, install_config):
             yaml_file.write(install_config)
 
 
-def set_pull_secret(config_dir):
+def pull_secret(config_dir):
     with open(os.path.join(config_dir, INSTALL_CONFIG), 'r') as yaml_file:
-        pull_secret = yaml.safe_load(yaml_file)['pullSecret']
+        return yaml.safe_load(yaml_file)['pullSecret']
+
+
+def set_pull_secret(config_dir):
     with open('/root/.docker/config.json', 'w+') as config_file:
-        config_file.write(pull_secret)
+        config_file.write(pull_secret(config_dir))
 
 
 def prepare_generation_data(work_dir, config_dir, install_config, openshift_release_image):
@@ -143,6 +146,11 @@ def create_config_dir(work_dir):
     config_dir = os.path.join(work_dir, "installer_dir")
     subprocess.check_output(["mkdir", "-p", config_dir])
     return config_dir
+
+
+def openshift_token(config_dir):
+    secret = json.loads(pull_secret(config_dir))
+    return secret["auths"]["cloud.openshift.com"]["auth"]
 
 
 def create_services_config(work_dir, config_dir, openshift_release_image):
@@ -184,7 +192,7 @@ def main():
     create_services_config(work_dir, config_dir, openshift_release_image)
 
     # update BMH configuration in boostrap ignition
-    update_bmh_files("%s/bootstrap.ign" % config_dir, cluster_id, inventory_endpoint)
+    update_bmh_files("%s/bootstrap.ign" % config_dir, cluster_id, inventory_endpoint, openshift_token(config_dir))
 
     if s3_endpoint_url:
         upload_to_s3(s3_endpoint_url, bucket, aws_access_key_id, aws_secret_access_key, config_dir, cluster_id)

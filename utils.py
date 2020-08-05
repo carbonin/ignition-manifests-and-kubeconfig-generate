@@ -50,9 +50,10 @@ class InventoryHost:
         return " "
 
 
-def get_inventory_hosts(inventory_endpoint, cluster_id):
+def get_inventory_hosts(inventory_endpoint, cluster_id, token):
     configs = Configuration()
     configs.host = inventory_endpoint
+    configs.api_key["X-Secret-Key"] = token
     apiClient = ApiClient(configuration=configs)
     client = api.InstallerApi(api_client=apiClient)
     hosts_list = client.list_hosts(cluster_id=cluster_id)
