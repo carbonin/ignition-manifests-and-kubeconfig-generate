@@ -139,7 +139,7 @@ def set_pull_secret(config_dir):
 # def prepare_generation_data(work_dir, config_dir, install_config, openshift_release_image):
 def prepare_generation_data(config_dir, install_config):
     prepare_install_config(config_dir, install_config)
-    set_pull_secret(config_dir)
+    # set_pull_secret(config_dir)
     # [TODO] - remove comment after fixing subsystem
     # oc_utils.extract_baremetal_installer(work_dir, openshift_release_image)
 
